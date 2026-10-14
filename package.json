@@ -1,6 +1,6 @@
 {
 	"name": "pi-backup-guard",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"type": "module",
 	"description": "Pi extension that backs up files affected by write/edit and dangerous bash commands before they run.",
 	"license": "MIT",

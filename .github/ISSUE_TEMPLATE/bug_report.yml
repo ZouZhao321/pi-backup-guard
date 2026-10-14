@@ -43,7 +43,7 @@ body:
     attributes:
       label: 版本号
       description: 你使用的项目版本
-      placeholder: v1.0.0
+      placeholder: v0.1.0
 
   - type: dropdown
     id: os
