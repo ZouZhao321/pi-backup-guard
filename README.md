@@ -39,10 +39,10 @@ Backup Guard is a Pi extension that implements "backup first, execute later". Be
 
 ### Coverage
 
-| Tool | Behavior |
-|------|----------|
-| **write** | Back up target file before overwriting (new files are skipped automatically) |
-| **edit**  | Back up target file before modifying |
+| Tool      | Behavior                                                                                                                                  |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **write** | Back up target file before overwriting (new files are skipped automatically)                                                              |
+| **edit**  | Back up target file before modifying                                                                                                      |
 | **bash**  | Detect dangerous commands (`rm`, `rmdir`, `del`, `rd`, `truncate`, `mv`, `Remove-Item`, `Move-Item`, etc.) and back up the involved files |
 
 ## Backup Directory Structure
@@ -84,10 +84,10 @@ The default backup directory is `.backups/` under the current working directory.
 
 ## Configuration Reference
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `BACKUP_DIR_NAME` | `".backups"` | Backup root directory name |
-| `BLOCK_ON_BACKUP_FAILURE` | `true` | Whether to block the original operation when backup fails |
+| Setting                   | Default      | Description                                               |
+| ------------------------- | ------------ | --------------------------------------------------------- |
+| `BACKUP_DIR_NAME`         | `".backups"` | Backup root directory name                                |
+| `BLOCK_ON_BACKUP_FAILURE` | `true`       | Whether to block the original operation when backup fails |
 
 Both are constants in `index.ts`; the extension reads no configuration file. `USERPROFILE` (falling back to `HOME`) is read only to expand a leading `~` in a path.
 
@@ -100,8 +100,8 @@ Both are constants in `index.ts`; the extension reads no configuration file. `US
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
+| Command    | Description                            |
+| ---------- | -------------------------------------- |
 | `/backups` | View the 10 most recent backup records |
 
 ## Safety
@@ -121,9 +121,15 @@ npm install
 
 Scripts declared in `package.json`:
 
-| Script | Command | Purpose |
-|--------|---------|---------|
-| `npm test` | `node scripts/smoke.mjs` | Contract smoke test without a Pi runtime: asserts the registration points present in `index.ts` (`pi.on("tool_call")`, `pi.registerCommand("backups")`), that `package.json` → `pi.extensions` points at an existing entry file, and that `LICENSE` starts with `MIT License` |
+| Script                 | Command                       | Purpose                                                                                                                                                                                                                                                                       |
+| ---------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run typecheck`    | `tsc --noEmit`                | Type-check `index.ts`                                                                                                                                                                                                                                                         |
+| `npm run lint`         | `eslint . --ext .ts`          | Lint with the `typescript-eslint` rules in `eslint.config.js`                                                                                                                                                                                                                 |
+| `npm run lint:fix`     | `eslint . --ext .ts --fix`    | Same as `lint`, with autofix                                                                                                                                                                                                                                                  |
+| `npm test`             | `node scripts/smoke.mjs`      | Contract smoke test without a Pi runtime: asserts the registration points present in `index.ts` (`pi.on("tool_call")`, `pi.registerCommand("backups")`), that `package.json` → `pi.extensions` points at an existing entry file, and that `LICENSE` starts with `MIT License` |
+| `npm run format`       | `prettier --write .`          | Format the repository with Prettier                                                                                                                                                                                                                                           |
+| `npm run format:check` | `prettier --check .`          | Check formatting without writing                                                                                                                                                                                                                                              |
+| `npm run check:pack`   | `node scripts/check-pack.mjs` | Assert the `npm pack` tarball ships `package.json`, the READMEs, `LICENSE`, `CHANGELOG.md` and every `pi.extensions` entry, and ships nothing from `node_modules/`, `.github/`, `tmp/` or internal docs                                                                       |
 
 Package contents dry run (what `npm pack` would ship, per `files` in `package.json`):
 
@@ -133,7 +139,9 @@ npm pack --dry-run
 
 There is no build step: `index.ts` is loaded as-is, and `tsconfig.json` (`noEmit`) exists for editors and type checking only.
 
-CI (`.github/workflows/ci.yml`) runs `npm ci`, `npm test` and `npm pack --dry-run` on every push to `main` and on every pull request.
+Commit messages follow `type(scope): 中文描述`; the `commit-msg` hook checks this locally (`pre-commit install`, which runs `scripts/check-commit-msg.py`) and in CI.
+
+CI (`.github/workflows/ci.yml`) runs `npm ci`, `npm run typecheck`, `npm run lint`, `npm test`, `npm run format:check` and `npm run check:pack` on Node 22 and 24 (ubuntu-latest) and Node 22 (windows-latest), plus a `commit-msg` job that validates the messages in the pushed range. `.github/workflows/gitleaks.yml` scans the history for leaked secrets on every push to `main` and on every pull request.
 
 ## License
 
