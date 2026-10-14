@@ -6,6 +6,14 @@
 
 ## Install
 
+Install from npm (recommended):
+
+```bash
+pi install npm:pi-backup-guard
+```
+
+Alternatively, install straight from the repository:
+
 ```bash
 pi install git:github.com/ZouZhao321/pi-backup-guard
 ```
@@ -13,7 +21,7 @@ pi install git:github.com/ZouZhao321/pi-backup-guard
 To use a local checkout instead (development), install the directory itself:
 
 ```bash
-pi install ./.pi/agent/extensions/backup-guard
+pi install ./backup-guard
 ```
 
 Requires the Pi coding agent and Node.js 22+ (see `engines` in `package.json`).
