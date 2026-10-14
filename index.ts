@@ -32,16 +32,7 @@
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { copyFile, cp, mkdir, readdir, stat } from "node:fs/promises";
-import {
-	basename,
-	dirname,
-	extname,
-	isAbsolute,
-	join,
-	relative,
-	resolve,
-	sep,
-} from "node:path";
+import { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 
 // ---------------------------------------------------------------------------
 // 配置
@@ -59,8 +50,7 @@ function backupRoot(cwd: string): string {
 const BLOCK_ON_BACKUP_FAILURE = true;
 
 /** 危险 bash 命令模式（Unix + Windows/PowerShell） */
-const DANGEROUS_COMMAND_RE =
-	/\b(?:rm|rmdir|del|rd|truncate|mv|Remove-Item|Move-Item)\b/i;
+const DANGEROUS_COMMAND_RE = /\b(?:rm|rmdir|del|rd|truncate|mv|Remove-Item|Move-Item)\b/i;
 
 /**
  * 从危险命令中提取候选路径 token。
@@ -73,10 +63,7 @@ function extractPathTokens(segment: string): string[] {
 		let t = raw.trim();
 		if (!t) continue;
 		// 去引号
-		if (
-			(t.startsWith('"') && t.endsWith('"')) ||
-			(t.startsWith("'") && t.endsWith("'"))
-		) {
+		if ((t.startsWith('"') && t.endsWith('"')) || (t.startsWith("'") && t.endsWith("'"))) {
 			t = t.slice(1, -1);
 		}
 		// 跳过 flags：-rf、--force、/q 等
@@ -91,9 +78,7 @@ function extractPathTokens(segment: string): string[] {
 /** 将 bash 命令按 ; && || | & 分段，返回危险段 */
 function dangerousSegments(command: string): string[] {
 	const cleaned = command.replace(/2>&1/g, "");
-	return cleaned
-		.split(/\s*(?:&&|\|\||[;&|])\s*/)
-		.filter((seg) => DANGEROUS_COMMAND_RE.test(seg));
+	return cleaned.split(/\s*(?:&&|\|\||[;&|])\s*/).filter((seg) => DANGEROUS_COMMAND_RE.test(seg));
 }
 
 /** 展开 ~ 前缀并转为绝对路径 */
@@ -121,11 +106,7 @@ function timestamp(): string {
  * 返回 true=已备份，false=无需备份。
  * 抛出异常=备份失败（调用方决定阻止/告警）。
  */
-async function backupPath(
-	cwd: string,
-	rawPath: string,
-	ts: string,
-): Promise<boolean> {
+async function backupPath(cwd: string, rawPath: string, ts: string): Promise<boolean> {
 	const abs = toAbsolute(cwd, rawPath);
 
 	// 只处理工作目录内的路径
@@ -225,10 +206,7 @@ export default function (pi: ExtensionAPI) {
 		}
 
 		if (backedUp > 0 && ctx.hasUI) {
-			ctx.ui.notify(
-				`✅ ${opDesc} 前已备份 ${backedUp} 个文件到 ${BACKUP_DIR_NAME}/`,
-				"info",
-			);
+			ctx.ui.notify(`✅ ${opDesc} 前已备份 ${backedUp} 个文件到 ${BACKUP_DIR_NAME}/`, "info");
 		}
 
 		return undefined;

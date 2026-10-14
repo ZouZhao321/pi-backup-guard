@@ -45,11 +45,7 @@ for (const { label, pattern } of registrations) {
 
 // 2. 扩展入口
 const extensions = Array.isArray(pkg.pi?.extensions) ? pkg.pi.extensions : [];
-check(
-	"package.json 声明 pi.extensions",
-	extensions.length > 0,
-	"缺少 pi.extensions 或为空数组",
-);
+check("package.json 声明 pi.extensions", extensions.length > 0, "缺少 pi.extensions 或为空数组");
 check(
 	'pi.extensions 包含 "./index.ts"',
 	extensions.includes("./index.ts"),
