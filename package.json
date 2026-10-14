@@ -3,8 +3,30 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "副作用操作（write/edit/bash 危险命令）前自动备份扩展",
-  "keywords": ["pi-package", "backup", "safety"],
+  "description": "Pi extension that backs up files affected by write/edit and dangerous bash commands before they run.",
+  "license": "MIT",
+  "keywords": ["pi-package", "pi-extension", "backup", "safety"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZouZhao321/pi-backup-guard.git"
+  },
+  "homepage": "https://github.com/ZouZhao321/pi-backup-guard#readme",
+  "bugs": {
+    "url": "https://github.com/ZouZhao321/pi-backup-guard/issues"
+  },
+  "files": [
+    "index.ts",
+    "README.md",
+    "README.zh.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node scripts/smoke.mjs"
+  },
   "pi": {
     "extensions": ["./index.ts"]
   },
@@ -12,7 +34,7 @@
     "@earendil-works/pi-coding-agent": "*"
   },
   "devDependencies": {
-    "@earendil-works/pi-coding-agent": "file:C:/Users/ZouZhao/AppData/Local/nvm/v22.21.1/node_modules/@earendil-works/pi-coding-agent",
+    "@earendil-works/pi-coding-agent": "^0.84.2",
     "@types/node": "^22.0.0"
   }
 }
