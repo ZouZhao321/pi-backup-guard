@@ -69,12 +69,22 @@ Backup Guard 在使用 `write`、`edit` 或 `bash` 工具时自动运行，无�
 
 ### 安装步骤
 
-```bash
-# 克隆扩展到 Pi agent 扩展目录
-git clone <仓库地址> agent/extensions/backup-guard
+推荐从 npm 安装：
 
-# 或手动复制目录
-cp -r backup-guard agent/extensions/backup-guard
+```bash
+pi install npm:pi-backup-guard
+```
+
+也可以直接从仓库安装：
+
+```bash
+pi install git:github.com/ZouZhao321/pi-backup-guard
+```
+
+本地开发时改为按目录安装：
+
+```bash
+pi install ./backup-guard
 ```
 
 将扩展放置在 `agent/extensions/` 下后，Pi 会自动加载。
