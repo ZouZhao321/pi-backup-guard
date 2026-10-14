@@ -2,7 +2,7 @@
  * Smoke test：不依赖运行时与网络，校验扩展的关键契约。
  *
  * 覆盖范围：
- *   1. index.ts 中实际存在的注册点：pi.on("tool_call")、pi.registerCommand("backups")
+ *   1. src/index.ts 中实际存在的注册点：pi.on("tool_call")、pi.registerCommand("backups")
  *   2. package.json 的 pi.extensions 指向存在的入口文件
  *   3. LICENSE 存在且首行为 "MIT License"
  *
@@ -31,24 +31,24 @@ function check(name, condition, detail) {
 const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 
 // 1. 注册点
-const source = readFileSync(join(root, "index.ts"), "utf8");
+const source = readFileSync(join(root, "src/index.ts"), "utf8");
 const registrations = [
-	{ label: 'index.ts 注册 pi.on("tool_call")', pattern: /pi\.on\(\s*"tool_call"/ },
+	{ label: 'src/index.ts 注册 pi.on("tool_call")', pattern: /pi\.on\(\s*"tool_call"/ },
 	{
-		label: 'index.ts 注册 pi.registerCommand("backups")',
+		label: 'src/index.ts 注册 pi.registerCommand("backups")',
 		pattern: /pi\.registerCommand\(\s*"backups"/,
 	},
 ];
 for (const { label, pattern } of registrations) {
-	check(label, pattern.test(source), "index.ts 中未找到该注册点");
+	check(label, pattern.test(source), "src/index.ts 中未找到该注册点");
 }
 
 // 2. 扩展入口
 const extensions = Array.isArray(pkg.pi?.extensions) ? pkg.pi.extensions : [];
 check("package.json 声明 pi.extensions", extensions.length > 0, "缺少 pi.extensions 或为空数组");
 check(
-	'pi.extensions 包含 "./index.ts"',
-	extensions.includes("./index.ts"),
+	'pi.extensions 包含 "./src/index.ts"',
+	extensions.includes("./src/index.ts"),
 	`实际为 ${JSON.stringify(extensions)}`,
 );
 for (const entry of extensions) {

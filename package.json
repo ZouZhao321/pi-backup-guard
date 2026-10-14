@@ -22,7 +22,7 @@
 		"url": "https://github.com/ZouZhao321/pi-backup-guard/issues"
 	},
 	"files": [
-		"index.ts",
+		"src",
 		"README.md",
 		"README.zh.md",
 		"CHANGELOG.md",
@@ -43,7 +43,7 @@
 	},
 	"pi": {
 		"extensions": [
-			"./index.ts"
+			"./src/index.ts"
 		]
 	},
 	"peerDependencies": {
