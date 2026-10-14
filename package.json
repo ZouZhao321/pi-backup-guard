@@ -1,10 +1,12 @@
 {
 	"name": "pi-backup-guard",
-	"private": true,
 	"version": "1.0.0",
 	"type": "module",
 	"description": "Pi extension that backs up files affected by write/edit and dangerous bash commands before they run.",
 	"license": "MIT",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
 	"keywords": [
 		"pi-package",
 		"pi-extension",
@@ -36,7 +38,8 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"test": "node scripts/smoke.mjs",
-		"check:pack": "node scripts/check-pack.mjs"
+		"check:pack": "node scripts/check-pack.mjs",
+		"prepublishOnly": "npm run typecheck && npm run lint && npm test && npm run format:check && npm run check:pack"
 	},
 	"pi": {
 		"extensions": [
