@@ -1,40 +1,57 @@
 {
-  "name": "pi-backup-guard",
-  "private": true,
-  "version": "1.0.0",
-  "type": "module",
-  "description": "Pi extension that backs up files affected by write/edit and dangerous bash commands before they run.",
-  "license": "MIT",
-  "keywords": ["pi-package", "pi-extension", "backup", "safety"],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ZouZhao321/pi-backup-guard.git"
-  },
-  "homepage": "https://github.com/ZouZhao321/pi-backup-guard#readme",
-  "bugs": {
-    "url": "https://github.com/ZouZhao321/pi-backup-guard/issues"
-  },
-  "files": [
-    "index.ts",
-    "README.md",
-    "README.zh.md",
-    "CHANGELOG.md",
-    "LICENSE"
-  ],
-  "engines": {
-    "node": ">=22"
-  },
-  "scripts": {
-    "test": "node scripts/smoke.mjs"
-  },
-  "pi": {
-    "extensions": ["./index.ts"]
-  },
-  "peerDependencies": {
-    "@earendil-works/pi-coding-agent": "*"
-  },
-  "devDependencies": {
-    "@earendil-works/pi-coding-agent": "^0.84.2",
-    "@types/node": "^22.0.0"
-  }
+	"name": "pi-backup-guard",
+	"private": true,
+	"version": "1.0.0",
+	"type": "module",
+	"description": "Pi extension that backs up files affected by write/edit and dangerous bash commands before they run.",
+	"license": "MIT",
+	"keywords": [
+		"pi-package",
+		"pi-extension",
+		"backup",
+		"safety"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ZouZhao321/pi-backup-guard.git"
+	},
+	"homepage": "https://github.com/ZouZhao321/pi-backup-guard#readme",
+	"bugs": {
+		"url": "https://github.com/ZouZhao321/pi-backup-guard/issues"
+	},
+	"files": [
+		"index.ts",
+		"README.md",
+		"README.zh.md",
+		"CHANGELOG.md",
+		"LICENSE"
+	],
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint . --ext .ts",
+		"lint:fix": "eslint . --ext .ts --fix",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"test": "node scripts/smoke.mjs"
+	},
+	"pi": {
+		"extensions": [
+			"./index.ts"
+		]
+	},
+	"peerDependencies": {
+		"@earendil-works/pi-coding-agent": "*"
+	},
+	"devDependencies": {
+		"@earendil-works/pi-coding-agent": "^0.84.2",
+		"@types/node": "^22.0.0",
+		"@typescript-eslint/eslint-plugin": "^8.0.0",
+		"@typescript-eslint/parser": "^8.0.0",
+		"eslint": "^9.0.0",
+		"prettier": "^3.4.0",
+		"typescript": "^5.7.0"
+	}
 }

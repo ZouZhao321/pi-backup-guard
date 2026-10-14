@@ -1,0 +1,6 @@
+node_modules
+tmp
+package-lock.json
+
+# 上游逐字文档，保持原始格式
+CODE_OF_CONDUCT.md
