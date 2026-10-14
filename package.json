@@ -35,7 +35,8 @@
 		"lint:fix": "eslint . --ext .ts --fix",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"test": "node scripts/smoke.mjs"
+		"test": "node scripts/smoke.mjs",
+		"check:pack": "node scripts/check-pack.mjs"
 	},
 	"pi": {
 		"extensions": [
