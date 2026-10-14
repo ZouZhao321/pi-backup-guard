@@ -28,7 +28,7 @@ Requires the Pi coding agent and Node.js 22+ (see `engines` in `package.json`).
 
 ## What it does
 
-The extension is loaded from `index.ts` (declared in `package.json` → `pi.extensions`) and registers exactly two things:
+The extension is loaded from `src/index.ts` (declared in `package.json` → `pi.extensions`) and registers exactly two things:
 
 - **A `tool_call` listener** (`pi.on("tool_call")`) that snapshots files before they are touched:
   - `write` and `edit` → the backup target is the tool's `input.path`.
@@ -97,7 +97,7 @@ The default backup directory is `.backups/` under the current working directory.
 | `BACKUP_DIR_NAME`         | `".backups"` | Backup root directory name                                |
 | `BLOCK_ON_BACKUP_FAILURE` | `true`       | Whether to block the original operation when backup fails |
 
-Both are constants in `index.ts`; the extension reads no configuration file. `USERPROFILE` (falling back to `HOME`) is read only to expand a leading `~` in a path.
+Both are constants in `src/index.ts`; the extension reads no configuration file. `USERPROFILE` (falling back to `HOME`) is read only to expand a leading `~` in a path.
 
 ## How It Works
 
@@ -129,15 +129,15 @@ npm install
 
 Scripts declared in `package.json`:
 
-| Script                 | Command                       | Purpose                                                                                                                                                                                                                                                                       |
-| ---------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run typecheck`    | `tsc --noEmit`                | Type-check `index.ts`                                                                                                                                                                                                                                                         |
-| `npm run lint`         | `eslint . --ext .ts`          | Lint with the `typescript-eslint` rules in `eslint.config.js`                                                                                                                                                                                                                 |
-| `npm run lint:fix`     | `eslint . --ext .ts --fix`    | Same as `lint`, with autofix                                                                                                                                                                                                                                                  |
-| `npm test`             | `node scripts/smoke.mjs`      | Contract smoke test without a Pi runtime: asserts the registration points present in `index.ts` (`pi.on("tool_call")`, `pi.registerCommand("backups")`), that `package.json` → `pi.extensions` points at an existing entry file, and that `LICENSE` starts with `MIT License` |
-| `npm run format`       | `prettier --write .`          | Format the repository with Prettier                                                                                                                                                                                                                                           |
-| `npm run format:check` | `prettier --check .`          | Check formatting without writing                                                                                                                                                                                                                                              |
-| `npm run check:pack`   | `node scripts/check-pack.mjs` | Assert the `npm pack` tarball ships `package.json`, the READMEs, `LICENSE`, `CHANGELOG.md` and every `pi.extensions` entry, and ships nothing from `node_modules/`, `.github/`, `tmp/` or internal docs                                                                       |
+| Script                 | Command                       | Purpose                                                                                                                                                                                                                                                                           |
+| ---------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run typecheck`    | `tsc --noEmit`                | Type-check `src/index.ts`                                                                                                                                                                                                                                                         |
+| `npm run lint`         | `eslint . --ext .ts`          | Lint with the `typescript-eslint` rules in `eslint.config.js`                                                                                                                                                                                                                     |
+| `npm run lint:fix`     | `eslint . --ext .ts --fix`    | Same as `lint`, with autofix                                                                                                                                                                                                                                                      |
+| `npm test`             | `node scripts/smoke.mjs`      | Contract smoke test without a Pi runtime: asserts the registration points present in `src/index.ts` (`pi.on("tool_call")`, `pi.registerCommand("backups")`), that `package.json` → `pi.extensions` points at an existing entry file, and that `LICENSE` starts with `MIT License` |
+| `npm run format`       | `prettier --write .`          | Format the repository with Prettier                                                                                                                                                                                                                                               |
+| `npm run format:check` | `prettier --check .`          | Check formatting without writing                                                                                                                                                                                                                                                  |
+| `npm run check:pack`   | `node scripts/check-pack.mjs` | Assert the `npm pack` tarball ships `package.json`, the READMEs, `LICENSE`, `CHANGELOG.md` and every `pi.extensions` entry, and ships nothing from `node_modules/`, `.github/`, `tmp/` or internal docs                                                                           |
 
 Package contents dry run (what `npm pack` would ship, per `files` in `package.json`):
 
@@ -145,7 +145,7 @@ Package contents dry run (what `npm pack` would ship, per `files` in `package.js
 npm pack --dry-run
 ```
 
-There is no build step: `index.ts` is loaded as-is, and `tsconfig.json` (`noEmit`) exists for editors and type checking only.
+There is no build step: `src/index.ts` is loaded as-is, and `tsconfig.json` (`noEmit`) exists for editors and type checking only.
 
 Commit messages follow `type(scope): 中文描述`; the `commit-msg` hook checks this locally (`pre-commit install`, which runs `scripts/check-commit-msg.py`) and in CI.
 
