@@ -147,7 +147,7 @@ npm pack --dry-run
 
 There is no build step: `src/index.ts` is loaded as-is, and `tsconfig.json` (`noEmit`) exists for editors and type checking only.
 
-Commit messages follow `type(scope): 中文描述`; the `commit-msg` hook checks this locally (`pre-commit install`, which runs `scripts/check-commit-msg.py`) and in CI.
+Commit messages follow `type(scope): 中文描述`; the `commit-msg` hook checks this locally (`npm install` installs the husky hook, which runs `scripts/check-commit-msg.mjs`) and in CI.
 
 CI (`.github/workflows/ci.yml`) runs `npm ci`, `npm run typecheck`, `npm run lint`, `npm test`, `npm run format:check` and `npm run check:pack` on Node 22 and 24 (ubuntu-latest) and Node 22 (windows-latest), plus a `commit-msg` job that validates the messages in the pushed range. `.github/workflows/gitleaks.yml` scans the history for leaked secrets on every push to `main` and on every pull request.
 
